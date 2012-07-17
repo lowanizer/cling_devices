@@ -12,8 +12,8 @@ import java.text.DecimalFormat;
 import javax.swing.Timer;
 
 @UpnpService(
-        serviceId = @UpnpServiceId("Display"),
-        serviceType = @UpnpServiceType(value = "Display", version = 1)
+        serviceId = @UpnpServiceId("Clock"),
+        serviceType = @UpnpServiceType(value = "Clock", version = 1)
 )
 public class Clock {
 

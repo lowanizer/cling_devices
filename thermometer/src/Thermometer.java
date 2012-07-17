@@ -8,8 +8,8 @@ import java.beans.PropertyChangeSupport;
 import java.text.DecimalFormat;
 
 @UpnpService(
-        serviceId = @UpnpServiceId("Display"),
-        serviceType = @UpnpServiceType(value = "Display", version = 1)
+        serviceId = @UpnpServiceId("Thermometer"),
+        serviceType = @UpnpServiceType(value = "Thermometer", version = 1)
 )
 public class Thermometer {
 

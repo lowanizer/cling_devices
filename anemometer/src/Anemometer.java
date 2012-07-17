@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 import java.text.DecimalFormat;
 
 @UpnpService(
-        serviceId = @UpnpServiceId("Display"),
+        serviceId = @UpnpServiceId("Anemometer"),
         serviceType = @UpnpServiceType(value = "Anemometer", version = 1)
 )
 public class Anemometer {

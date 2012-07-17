@@ -7,8 +7,8 @@ import org.teleal.cling.binding.annotations.*;
 import java.beans.PropertyChangeSupport;
 
 @UpnpService(
-        serviceId = @UpnpServiceId("Display"),
-        serviceType = @UpnpServiceType(value = "Display", version = 1)
+        serviceId = @UpnpServiceId("Luxmeter"),
+        serviceType = @UpnpServiceType(value = "Luxmeter", version = 1)
 )
 public class Luxmeter {
 
