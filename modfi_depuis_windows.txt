@@ -1,1 +1,3 @@
 hello world
+
+modif to test the diff command
