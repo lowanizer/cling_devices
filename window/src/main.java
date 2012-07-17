@@ -56,44 +56,23 @@ class window_display_label extends javax.swing.JLabel
 
 	public window_display_label()
 	{
-		super(main.create_image_icon("window_closed.png", "Window"));
+		open_icon=main.create_image_icon("window_opened.png", "Window");
+		close_icon=main.create_image_icon("window_closed.png", "Window");
+		
+		setIcon(close_icon);
 		closed = true;
 	}
 
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-
-		Font f = new Font("SansSerif", Font.PLAIN, 35);
-		g.setFont(f);
-
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-					     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		
-		Image img = null;
-		String img_path = "";
-		
-		if(closed){
-			img_path = "window_closed.png";
-		}
-		else{
-			img_path = "window_opened.png";
-		}
-		try {
-			img = ImageIO.read(new File(img_path));
-		} catch (IOException e) {
-			System.out.println("Error loading image : "+e);
-		}
-		g2d.drawImage(img , 0, 0, null);
-	}
 	
 	public void draw_window(Boolean c){
 		closed = c;
-		repaint();
+		setIcon(c?close_icon:open_icon);
 	}
 
 	private Boolean closed;
+	private ImageIcon open_icon;
+	private ImageIcon close_icon;
+	
 }
 
 class main implements Runnable
@@ -152,7 +131,7 @@ class main implements Runnable
 		m_window_display_label=new window_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.getContentPane().setBackground(java.awt.Color.white);
+		//frame.getContentPane().setBackground(java.awt.Color.white);
 		frame.getContentPane().add(m_window_display_label, BorderLayout.CENTER);
 
 		frame.pack();

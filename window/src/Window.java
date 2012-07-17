@@ -6,6 +6,8 @@ import java.beans.PropertyChangeSupport;
 import org.teleal.cling.binding.annotations.*;
 import java.beans.PropertyChangeSupport;
 
+import javax.swing.ImageIcon;
+
 @UpnpService(
         serviceId = @UpnpServiceId("Window"),
         serviceType = @UpnpServiceType(value = "Window", version = 1)

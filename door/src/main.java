@@ -56,44 +56,22 @@ class door_display_label extends javax.swing.JLabel
 
 	public door_display_label()
 	{
-		super(main.create_image_icon("door_closed.png", "Door"));
+		open_icon=main.create_image_icon("door_opened.png", "Window");
+		close_icon=main.create_image_icon("door_closed.png", "Window");
+		
+		setIcon(close_icon);
 		closed = true;
 	}
 
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-
-		Font f = new Font("SansSerif", Font.PLAIN, 35);
-		g.setFont(f);
-
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-					     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		
-		Image img = null;
-		String img_path = "";
-		
-		if(closed){
-			img_path = "door_closed.png";
-		}
-		else{
-			img_path = "door_opened.png";
-		}
-		try {
-			img = ImageIO.read(new File(img_path));
-		} catch (IOException e) {
-			System.out.println("Error loading image : "+e);
-		}
-		g2d.drawImage(img , 0, 0, null);
-	}
 	
 	public void draw_door(Boolean c){
 		closed = c;
-		repaint();
+		setIcon(c?close_icon:open_icon);
 	}
 
 	private Boolean closed;
+	private ImageIcon open_icon;
+	private ImageIcon close_icon;
 }
 
 class main implements Runnable
