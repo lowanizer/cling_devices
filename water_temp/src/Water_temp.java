@@ -1,0 +1,55 @@
+import org.teleal.cling.binding.annotations.*;
+
+import java.beans.PropertyChangeSupport;
+// Upnp Service are classes + annotations.
+
+import org.teleal.cling.binding.annotations.*;
+import java.beans.PropertyChangeSupport;
+import java.text.DecimalFormat;
+
+@UpnpService(
+        serviceId = @UpnpServiceId("Display"),
+        serviceType = @UpnpServiceType(value = "Display", version = 1)
+)
+public class Water_temp {
+
+    private final PropertyChangeSupport propertyChangeSupport;
+
+    public Water_temp() {
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
+    }
+
+    public PropertyChangeSupport getPropertyChangeSupport() {
+        return propertyChangeSupport;
+    }
+
+    @UpnpStateVariable(defaultValue = "0", sendEvents = true)
+    private double temperature = 0;
+
+    @UpnpAction
+    public void setTemperature(@UpnpInputArgument(name = "NewTargetValue") double newTargetValue) {
+
+        double tempOldValue = temperature;
+        temperature = newTargetValue;
+       
+        DecimalFormat df = new DecimalFormat("##.#");
+
+	main.m_temp_display_label.set_text_message("Temperature: "+df.format(newTargetValue)+"°C");
+
+	 // This will send a UPnP event, it's the name of a state variable that sends events
+    getPropertyChangeSupport().firePropertyChange("Temperature", tempOldValue, temperature);
+    }
+
+    @UpnpAction(out = @UpnpOutputArgument(name = "ResultTemperature"))
+    public double getTemperature() {
+        return temperature;
+    }
+
+    @UpnpStateVariable(defaultValue="type=Display", sendEvents=true)
+    private String MetaData = "type=Display";
+
+    @UpnpAction(out=@UpnpOutputArgument(name="ResultMetaData"))
+    public String getMetaData()
+    { return MetaData; }
+
+}
