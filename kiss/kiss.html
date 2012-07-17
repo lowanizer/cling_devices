@@ -1,0 +1,277 @@
+﻿<html>
+	<head>
+        <meta charset="utf-8" />
+		<link rel="stylesheet" href="kiss.css" />
+        <title>Kiss</title>
+    </head>
+
+	<body>
+	
+		<input type="button" value="test_button1" onClick="new_applet('test');"/>
+		<!--
+		<OBJECT id="applet" codetype="application/java" classid="java:KissApplet.class">
+			<PARAM NAME="codebase" VALUE="bin/"/>
+			<PARAM NAME="mayscript" VALUE="true"/>
+			<PARAM NAME="archive" VALUE="../lib/plugin.jar, ../lib/ukiss.jar, ../lib/cling-core-1.0.3.jar, ../lib/teleal-common-1.0.13.jar"/>
+		-->
+		
+		<OBJECT id="applet" codetype="application/java" classid="java:KissApplet.class">
+			<PARAM NAME="codebase" VALUE="."/>
+			<PARAM NAME="mayscript" VALUE="true"/>
+			<PARAM NAME="archive" VALUE="lib/plugin.jar, lib/ukiss.jar, lib/cling-core-1.0.3.jar, lib/teleal-common-1.0.13.jar, KissApplet.jar"/>
+				
+			L'applet Java ne fonctionne pas ! Veuillez activer Java sur votre machine/navigateur.
+		</OBJECT>
+	
+		<div id="main_forms"/>
+			<form id="form0"></form>
+		</div>
+		
+		<span class="button_green" onClick="add_form();" style="position:absolute;left:20%;bottom:20%;">Add a sentence</span>
+		<span class="button_red" onClick="get_random_sentence();" style="position:absolute;right:20%;bottom:20%;">Random sentence !</span>
+		
+		<div id="switch_shadow"></div>
+		<div id="notification"></div>
+		
+		<script type="text/javascript">
+			
+			var selections = new Array();
+			selections[0] = 0;
+			var all_words_index = new Array();
+			all_words_index[0] = new Array();
+			var last_form = 0;
+			var current_validated_form = -1;
+			
+			// Adds a form, each form corresponding to an independent sentence
+			function add_form(){
+				if(last_form==49){
+					alert("50 sentences maximum !");
+					return 0;
+				}
+			
+				last_form ++;
+				document.getElementById("main_forms").innerHTML += '<div id="panel'+last_form+'"><div class="separation"><span class="button_red" onClick="delete_form('+last_form+');" style="position:absolute;right:0px;top:3px;"/>Delete sentence</span></div><br /><form id="form'+last_form+'"></form></div>';
+				selections[last_form] = 0;
+				all_words_index[last_form] = new Array();
+				document.getElementById('applet').create_engine(last_form);
+			}
+			
+			
+			// Adds a select element in the form with an empty option
+			function add_selection(id_form){
+				selections[id_form]++;
+				document.getElementById("form"+id_form).innerHTML += '<select onChange="change_selection('+id_form+',this,'+selections[id_form]+',this.selectedIndex);" name="f'+id_form+'s'+selections[id_form]+'" id="f'+id_form+'s'+selections[id_form]+'"><option value=""></option></select> ';			
+			}
+			
+			// Adds an option in the chosen select element in the selected form
+			function add_option(id_form,sel,value,name){
+				document.getElementById("f"+id_form+"s"+sel).innerHTML += '<option value="'+value+'">'+name+'</option>';
+			}
+			
+			// Adds text at the end of the form
+			function add_text(id_form,text){
+				document.getElementById("form"+id_form).innerHTML += text+" ";
+			}
+		
+			/*
+			When the user make a selection, the change is computed by the applet, and the selected word replace 
+			the selection. The id of the selected word is kept in memory in order to be able to "rewind" the
+			sentence from any point.
+			If the sentence doesn't finish by a ".", we read the next available words.			
+			*/
+			function change_selection(id_form,sel,i,selected_index){
+				if(i==selections[id_form]){
+					current_form = id_form;
+					var selection = sel.options[selected_index];
+					
+					sel.parentNode.removeChild(sel);
+					add_text(id_form,'<acronym title="change" onClick="rewrite('+id_form+','+i+');"><strong>'+selection.value+'</strong></acronym>');
+					all_words_index[id_form][i] = selected_index;
+					
+					read_word(id_form,selection.value);
+					
+					if(selection.value!=".") next_words(id_form);
+					else{ // end of sentence
+						add_text(id_form,'<br /><br /><span class="button_green" onKeydown="this.focus();" onClick="validate_sentence('+id_form+');">Validate</span>');
+					}
+				}
+			}
+			
+			/* 
+			Calls for the next available words using a method in the applet.
+			The applet then calls for the list_words functions with the result.
+			*/
+			function next_words(id_form){
+				document.getElementById('applet').next_possible_words(id_form);
+			}
+			
+			// Sends a word to the applet to be added to the sentence.
+			function read_word(id_form,word){
+				document.getElementById('applet').read(id_form,word);
+			}
+			
+			// Resets the sentence using the corresponding method in the applet.
+			function reset_all(id_form){
+				document.getElementById('applet').reset_engine(id_form);
+			}
+
+			/*
+			This function is given a list of available words from the applet in one string, each word
+			being separated from the others by a comma. If there is only one word, it is simply written
+			as a "normal word" (no choice possible). Otherwise, a list of options is set up in a new
+			selection element.
+			*/
+			function list_words(id_form,list){
+				var words = list.split(',');
+				var len = words.length;
+				if(len==0) alert('No available word !')
+				else if(len==1){
+					add_text(id_form,words[0]);
+					read_word(id_form,words[0]);
+					next_words(id_form);
+				}
+				else{
+					add_selection(id_form);
+					for(var i=0;i<len;i++){
+						add_option(id_form,selections[id_form],words[i],words[i]);
+					}
+					document.getElementById("f"+id_form+"s"+selections[id_form]).focus();
+				}
+			}
+		
+			/*
+			Rewrites the sentence until the selected word (excluding itself), using the list of choices (all_words_index)
+			made up previously to manually rewind all the sentence and rewrite the part we keep.		
+			*/
+			function rewrite(id_form,i){
+				document.getElementById("form"+id_form).innerHTML = "";
+				reset_all(id_form);
+				selections[id_form] = 0;
+				
+				next_words(id_form);
+				
+				while(selections[id_form]<i){
+					change_selection(id_form,document.getElementById("f"+id_form+"s"+selections[id_form]),selections[id_form],all_words_index[id_form][selections[id_form]]);			
+				}
+			}
+
+			
+			// RANDOM !
+			function get_random_sentence(){
+				document.getElementById("form0").innerHTML = "";
+				reset_all(0);
+				selections[0] = 0;
+				last_selection = -1;
+				var sel;
+				var index;
+				
+				next_words(0);
+
+				while(selections[0]!=last_selection){
+					last_selection = selections[0];
+					sel = document.getElementById("f0s"+selections[0]);
+					index = Math.floor(Math.random()*(sel.options.length-1))+1;
+					change_selection(0,sel,selections[0],index);				
+				}
+			}
+			
+			// Deletes the selected form
+			function delete_form(id_form){
+				var sel = document.getElementById("panel"+id_form);
+				sel.parentNode.removeChild(sel);
+				document.getElementById('applet').reset_engine(id_form);
+			}
+		
+			// Enables the user to make his first choice when the applet is initialized.
+			function start(id_form){
+				//document.getElementById('applet').connexion_test("http://www.google.com");
+				next_words(id_form);
+			}
+			
+			// Validates the sentence
+			function validate_sentence(id_form){
+				document.getElementById('applet').transfer(id_form);
+				current_validated_form = id_form;
+			}
+			
+			// Shadows/unshadows the page.
+			function shadowing(bool){
+				if(bool) document.getElementById('switch_shadow').innerHTML = '<div id="shadow"></div>';
+				else document.getElementById('switch_shadow').innerHTML = '';
+			}
+			
+			// Displays a box with the message inside. Hides the box with an empty message as parameter.
+			function notification(message){
+				if(message==""){
+					document.getElementById('notification').style.display = 'none';
+					document.getElementById('notification').innerHTML = '';
+				}
+				else{
+					document.getElementById('notification').style.display = 'block';
+					document.getElementById('notification').innerHTML += message+'<br />';
+				}
+			}
+			
+			// Used to confirm a retry when an error occurs with GDC
+			function confirm_try_again(message){
+				document.getElementById('applet').set_try_again(confirm(message));
+			}
+			
+			function op_successful(){
+				add_text(current_validated_form,'<img title="validated" src="ressources/valid.png" height=40 style="position:relative;top:10px;"/>')	;	
+				current_validated_form = -1;
+			}
+			
+			
+			// NOT IN USE, EXCEPT IN CASE OF UNKNOWN PROBLEM ------------------------------------------------------------------------------------------
+			
+			// Validates the sentence passing by a new applet for no JS calling
+			function validate_sentence_bis(id_form){
+				var command = "";
+				for(i=1;i<all_words_index[id_form].length;i++){
+					if(i!=1) command += ",";
+					command += (all_words_index[id_form][i]-1); // -1 for the blank option wich is not counted
+				}
+				
+				new_applet(command);				
+			}
+			
+			// Rewrites all the sentence from a string listing the choices (numbers separated by commas)
+			function rewrite_with_string(id_form,str){
+				
+				document.getElementById("form"+id_form).innerHTML = "";
+				reset_all(id_form);
+				
+				all_words_index[id_form] = new Array();
+				
+				selections[id_form] = 0;
+				var choices_list = str.split(",");
+				
+				next_words(id_form);
+				
+				while(selections[id_form]<choices_list.length){
+					change_selection(id_form,document.getElementById("f"+id_form+"s"+selections[id_form]),selections[id_form],parseInt(choices_list[selections[id_form]-1])+1); //+1 for blank option
+				}
+				change_selection(id_form,document.getElementById("f"+id_form+"s"+selections[id_form]),selections[id_form],1); // for the final dot
+			}
+			
+			// Launching a new applet with a command string for passing java arguments without going through JS
+			function new_applet(param){
+				var sel = document.getElementById('applet');
+				
+				sel.parentNode.removeChild(sel);
+				document.getElementById("main_forms").innerHTML = '<form id="form0"></form>';
+
+				var new_app = '<OBJECT id="applet" codetype="application/java" classid="java:KissApplet.class">'+sel.innerHTML+'<PARAM NAME="command" VALUE="'+param+'"></OBJECT>';
+				
+				var body = document.getElementsByTagName("body")[0];
+				var div = document.createElement("div");
+				div.innerHTML = new_app;
+				body.appendChild(div);
+			}
+			
+		</script>	
+		
+	</body>
+
+</html>

@@ -89,7 +89,7 @@ class temp_display_label extends javax.swing.JLabel
 
 class main implements Runnable
 {
-	DefaultServiceManager<Water_temp> m_manager;
+	DefaultServiceManager<Thermometer> m_manager;
 	static temp_display_label m_temp_display_label;
 
 	// [Helper] Returns an image icon using the gui.getClass() or null 
@@ -109,23 +109,23 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo water thermometer"));
+				UDN.uniqueSystemIdentifier("Demo Thermometer"));
 
-		DeviceType type=new UDADeviceType("Water_temp", 1);
+		DeviceType type=new UDADeviceType("Thermometer", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Water Thermometer",
+				"Friendly Thermometer",
 				new ManufacturerDetails("ACME"),
-				new ModelDetails("Hotcold 6000",
-					"A friendly Water Thermometer",
+				new ModelDetails("Kelvin 6500",
+					"A friendly Thermometer",
 					"v1"));
 			
-		LocalService<Water_temp> display_service=
-			(LocalService<Water_temp>)
-			new AnnotationLocalServiceBinder().read(Water_temp.class);
+		LocalService<Thermometer> display_service=
+			(LocalService<Thermometer>)
+			new AnnotationLocalServiceBinder().read(Thermometer.class);
 
-		m_manager=new DefaultServiceManager<Water_temp>(display_service,
-				Water_temp.class);
+		m_manager=new DefaultServiceManager<Thermometer>(display_service,
+				Thermometer.class);
 
 		display_service.setManager(m_manager);
 
@@ -138,7 +138,7 @@ class main implements Runnable
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
 
-		JFrame frame=new JFrame("Water Meter");
+		JFrame frame=new JFrame("Thermometer");
 		m_temp_display_label=new temp_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -169,15 +169,9 @@ class main implements Runnable
 			// add the bound local device to the registry
 			upnp_service.getRegistry().addDevice(create_device());
 
-			double temperature = 37.5;
+			double temperature = 25.5;
 			m_manager.getImplementation().setTemperature(temperature);
-			/*
-			while(true){
-				temperature += (Math.floor(Math.random()*11)-5)/10;
-				Thread.sleep(1000);
-				m_manager.getImplementation().setTemperature(temperature);
-			}
-			*/
+		
 			
 		} catch(Exception ex){
 			System.err.println(ex);

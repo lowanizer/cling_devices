@@ -1,0 +1,90 @@
+body{
+background-color: rgb(200,200,240);
+font-size: 20px;
+}
+
+#main_forms{
+background-color: rgb(230,230,255);
+border: 3px ridge blue;
+position: absolute;
+left: 20%;
+right: 20%;
+top : 20%;
+bottom: 25%;
+padding: 5px;
+border-radius: 10px;
+overflow: auto;
+}
+
+#notification{
+background-color: rgb(230,230,255);
+display:none;
+text-align: center;
+border: 3px double darkblue;
+position: absolute;
+left: 38%;
+right: 38%;
+top : 35%;
+bottom: 50%;
+padding: 5px;
+border-radius: 5px;
+overflow: auto;
+z-index: 10000;
+}
+
+.button_green{
+background-color: rgb(240,255,240);
+border: 2px groove green;
+padding: 3px;
+border-radius: 5px;
+text-align: center;
+}
+
+.button_red{
+background-color: rgb(255,240,240);
+border: 2px groove red;
+padding: 1px;
+font-size:18px;
+border-radius: 5px;
+text-align: center;
+}
+
+.button_green:hover, .button_red:hover{
+background-color: rgb(240,240,150);
+border: 2px groove yellow;
+cursor: pointer;
+}
+
+.separation{
+border: 3px ridge blue;
+position: relative;
+width: 99%;
+}
+
+.delete_button{
+
+}
+
+select{
+border: 2px solid blue;
+padding: 1px;
+}
+
+acronym{
+border:none;
+}
+
+acronym:hover{
+background-color: rgb(220,180,180);
+cursor: pointer;
+}
+
+#shadow{
+opacity: 0.5;
+background-color: rgb(100,100,100);
+position: absolute;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+}

@@ -138,7 +138,7 @@ class main implements Runnable
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
 
-		JFrame frame=new JFrame("Water Meter");
+		JFrame frame=new JFrame("Water Thermometer");
 		m_temp_display_label=new temp_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
