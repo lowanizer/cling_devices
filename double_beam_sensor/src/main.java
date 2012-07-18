@@ -47,18 +47,19 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.font.*;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 
-class beam_display_label extends javax.swing.JLabel
+class beam_display_label extends javax.swing.JLabel implements MouseListener
 {
 
 	public beam_display_label(String path)
 	{
 		super(main.create_image_icon(path, "Beam sensors"));
-		m_text_messagel1="";
-		m_text_messagel2="";
+		addMouseListener(this);
 		beam1 = true;
 		beam2 = true;
 	}
@@ -66,24 +67,11 @@ class beam_display_label extends javax.swing.JLabel
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-
-		Font f = new Font("SansSerif", Font.PLAIN, 35);
-		g.setFont(f);
-		FontMetrics fm=g.getFontMetrics();
-
 		final Dimension d=getSize();
-
-		final int line_height=fm.getHeight();
-		final int line_width=fm.stringWidth(m_text_messagel1);
-
+		
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 					     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-		g2d.drawString(m_text_messagel1, (int)d.getWidth()/2-line_width/2,
-				(int)d.getHeight()/2);
-		g2d.drawString(m_text_messagel2, (int)d.getWidth()/2-line_width/2,
-				(int)(d.getHeight()/1.5));
 		
 		Image img = null;
 		String img_path = "";
@@ -121,27 +109,32 @@ class beam_display_label extends javax.swing.JLabel
 		repaint();
 	}
 
-	public void set_text_message1(String message)
-	{
-		m_text_messagel1=message;
-		repaint();
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getX()<=275){
+			main.m_manager.getImplementation().setBeam1(!beam1);
+		}
+		else{
+			main.m_manager.getImplementation().setBeam2(!beam2);
+		}
 	}
-	public void set_text_message2(String message)
-	{
-		m_text_messagel2=message;
-		draw_lasers(true,true);
-		repaint();
-	}
-
-	private String m_text_messagel1;
-	private String m_text_messagel2;
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	
 	private Boolean beam1;
 	private Boolean beam2;
 }
 
 class main implements Runnable
 {
-	DefaultServiceManager<Beam_sensor> m_manager;
+	static DefaultServiceManager<Beam_sensor> m_manager;
 	static beam_display_label m_beam_display_label;
 	static JFrame frame;
 

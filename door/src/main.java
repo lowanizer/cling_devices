@@ -47,17 +47,20 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.font.*;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 
-class door_display_label extends javax.swing.JLabel
+class door_display_label extends javax.swing.JLabel implements MouseListener
 {
-
+	
 	public door_display_label()
 	{
 		open_icon=main.create_image_icon("door_opened.png", "Window");
 		close_icon=main.create_image_icon("door_closed.png", "Window");
+		addMouseListener(this);
 		
 		setIcon(close_icon);
 		closed = true;
@@ -72,11 +75,26 @@ class door_display_label extends javax.swing.JLabel
 	private Boolean closed;
 	private ImageIcon open_icon;
 	private ImageIcon close_icon;
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		main.m_manager.getImplementation().setClosed(!closed);
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	
 }
 
 class main implements Runnable
 {
-	DefaultServiceManager<Door> m_manager;
+	static DefaultServiceManager<Door> m_manager;
 	static door_display_label m_door_display_label;
 	static JFrame frame;
 

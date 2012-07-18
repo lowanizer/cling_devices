@@ -35,8 +35,8 @@ public class Beam_sensor {
 
     public void update_move_dir(int nbeam, Boolean new_state){
     	if(!new_state){ // block
-    		if(!(r1 || r2) && side==0){ // first entry
-    			side = nbeam;    			
+    		if(!r1 && !r2 && side==0){ // first entry
+    			side = nbeam;
     		}
     		r1 = false;
     		r2 = false;    		
@@ -44,10 +44,6 @@ public class Beam_sensor {
     	else{ // release
     		if(nbeam==1) r1 = true;
     		else r2 = true;
-    		
-    		if(beam1 && beam2){
-    			side=0;
-    		}
     		
     		// 2 releases = passage
     		if(r1 && r2){
@@ -60,6 +56,12 @@ public class Beam_sensor {
     			r1 = false;
         		r2 = false;
     		}
+    		
+    		if(beam1 && beam2){
+    			side=0;
+    			r1 = false;
+        		r2 = false;
+    		}
     	}
     }
     
@@ -67,11 +69,11 @@ public class Beam_sensor {
     @UpnpAction
     public void setLastmove(@UpnpInputArgument(name = "NewTargetValue") String newTargetValue) {
 
-        String OldValue = lastmove;
+        String oldValue = lastmove;
         lastmove = newTargetValue;
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("lastmove", OldValue, lastmove);
+    getPropertyChangeSupport().firePropertyChange("lastmove", oldValue, lastmove);
     }
     
     @UpnpAction
@@ -80,7 +82,6 @@ public class Beam_sensor {
         Boolean beamOldValue = beam1;
         beam1 = newTargetValue;
 
-	//main.m_beam_display_label.set_text_message1("Beam 1 received: "+newTargetValue);
 	main.m_beam_display_label.draw_lasers(newTargetValue, beam2);
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
@@ -95,7 +96,6 @@ public class Beam_sensor {
         Boolean beamOldValue = beam2;
         beam2 = newTargetValue;
 
-	//main.m_beam_display_label.set_text_message2("Beam 2 received: "+newTargetValue);
 	main.m_beam_display_label.draw_lasers(beam1, newTargetValue);
 	
 	 // This will send a UPnP event, it's the name of a state variable that sends events
