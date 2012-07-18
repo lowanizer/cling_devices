@@ -32,6 +32,8 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
+
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -43,14 +45,19 @@ import java.awt.BorderLayout;
 
 import java.beans.PropertyChangeSupport;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.font.*;
 import java.awt.*;
 
-class light_display_label extends javax.swing.JLabel
+class light_display_label extends javax.swing.JLabel implements MouseListener
 {
 	public light_display_label()
 	{
 		super(main.create_image_icon("luxmeter.png", "Luxmeter"));
+		addMouseListener(this);
 		m_text_message="";
 	}
 
@@ -81,7 +88,48 @@ class light_display_label extends javax.swing.JLabel
 		m_text_message=message;
 		repaint();
 	}
+	
+	Timer t = new Timer(25,new ActionListener(){
+		public void actionPerformed(ActionEvent e) {
+			click();
+		}
+    } );
+	
+	int plus_minus=0;
+	
+	public void click(){
+		main.m_manager.getImplementation().addLight(plus_minus);
+	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if(e.getY()>=280){
+			if(e.getX()<=70){
+				plus_minus = -100;
+				main.m_manager.getImplementation().addLight(plus_minus);
+				t.setInitialDelay(500);
+				t.start();				
+			}
+			else if(e.getX()>=280){
+				plus_minus = 100;
+				main.m_manager.getImplementation().addLight(plus_minus);
+				t.setInitialDelay(500);
+				t.start();
+			}
+		}	
+	}
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		t.stop();
+	}
 
 	private String m_text_message;
 
@@ -89,7 +137,7 @@ class light_display_label extends javax.swing.JLabel
 
 class main implements Runnable
 {
-	DefaultServiceManager<Luxmeter> m_manager;
+	static DefaultServiceManager<Luxmeter> m_manager;
 	static light_display_label m_light_display_label;
 
 	// [Helper] Returns an image icon using the gui.getClass() or null 

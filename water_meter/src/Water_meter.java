@@ -36,6 +36,10 @@ public class Water_meter {
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Debit", debitOldValue, debit);
     }
+    
+    public void addDebit(int add){
+    	setDebit(debit+add);
+    }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultDebit"))
     public int getDebit() {

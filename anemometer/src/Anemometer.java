@@ -38,6 +38,10 @@ public class Anemometer {
     getPropertyChangeSupport().firePropertyChange("Wind", OldValue, wind);
     }
 
+    public void addWind(int add){
+    	setWind(wind+add);
+    }
+    
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultWind"))
     public int getWind() {
         return wind;

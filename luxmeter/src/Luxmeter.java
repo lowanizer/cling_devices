@@ -36,6 +36,10 @@ public class Luxmeter {
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Light", OldValue, light);
     }
+    
+    public void addLight(int add){
+    	setLight(light+add);
+    }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultLight"))
     public int getLight() {

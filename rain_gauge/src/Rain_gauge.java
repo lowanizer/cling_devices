@@ -36,6 +36,10 @@ public class Rain_gauge {
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Raining", OldValue, raining);
     }
+    
+    public void addRain(int add){
+    	setRaining(raining+add);
+    }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultRaining"))
     public int getRaining() {

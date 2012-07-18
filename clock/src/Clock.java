@@ -21,7 +21,7 @@ public class Clock {
 
     public Clock() {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
-        t.start();
+        t0.start();
     }
 
     public PropertyChangeSupport getPropertyChangeSupport() {
@@ -37,25 +37,32 @@ public class Clock {
     
     private DecimalFormat df = new DecimalFormat("00");
     
-    Timer t = new Timer(1000,new ActionListener(){
+    Timer t0 = new Timer(1000,new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
-			update_clock();
+			update_clock(true);
 		}
     } );
 
 
-    public void update_clock(){			
-		second++;
+    public void update_clock(Boolean add_sec){			
+		if(add_sec) second++;
 		if(second>=60){
 			second = 0;
 			minute++;
-			if(minute>=60){
-				minute = 0;
-				hour++;
-				if(hour>=24){
-					hour = 0;						
-				}
-			}
+		}
+		if(minute>=60){
+			minute = 0;
+			hour++;
+		}
+		if(minute<0){
+			minute = 59;
+			hour--;
+		}
+		if(hour<0){
+			hour = 23;						
+		}
+		if(hour>=24){
+			hour = 0;						
 		}
 		
 		main.m_clock_display_label.set_text_message(df.format(hour)+":"+df.format(minute)+":"+df.format(second));
@@ -68,8 +75,8 @@ public class Clock {
         int hourOldValue = hour;
         hour = newTargetValue;
 
-	main.m_clock_display_label.set_text_message(newTargetValue+":"+minute+":"+second);
-
+	//main.m_clock_display_label.set_text_message(newTargetValue+":"+minute+":"+second);
+	update_clock(false);
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Hour", hourOldValue, hour);
     }
@@ -80,8 +87,8 @@ public class Clock {
         int minuteOldValue = minute;
         minute = newTargetValue;
 
-	main.m_clock_display_label.set_text_message(hour+":"+newTargetValue+":"+second);
-
+	//main.m_clock_display_label.set_text_message(hour+":"+newTargetValue+":"+second);
+    update_clock(false);
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Minute", minuteOldValue, minute);
     }
@@ -92,10 +99,14 @@ public class Clock {
         int secondOldValue = second;
         second = newTargetValue;
 
-	main.m_clock_display_label.set_text_message(hour+":"+minute+":"+newTargetValue);
-
+	//main.m_clock_display_label.set_text_message(hour+":"+minute+":"+newTargetValue);
+	update_clock(false);
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Second", secondOldValue, second);
+    }
+    
+    public void addMinute(int add){
+    	setMinute(minute+add);
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultHour"))

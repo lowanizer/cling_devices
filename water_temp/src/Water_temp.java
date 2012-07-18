@@ -39,7 +39,11 @@ public class Water_temp {
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Temperature", tempOldValue, temperature);
     }
-
+    
+    public void addTemp(double add){
+    	setTemperature(temperature+add);
+    }
+    
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultTemperature"))
     public double getTemperature() {
         return temperature;

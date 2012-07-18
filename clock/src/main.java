@@ -32,6 +32,8 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
+
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -43,14 +45,19 @@ import java.awt.BorderLayout;
 
 import java.beans.PropertyChangeSupport;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.font.*;
 import java.awt.*;
 
-class clock_display_label extends javax.swing.JLabel
+class clock_display_label extends javax.swing.JLabel implements MouseListener
 {
 	public clock_display_label()
 	{
 		super(main.create_image_icon("clock.png", "Clock"));
+		addMouseListener(this);
 		m_text_message="";
 	}
 
@@ -81,7 +88,48 @@ class clock_display_label extends javax.swing.JLabel
 		m_text_message=message;
 		repaint();
 	}
+	
+	Timer t = new Timer(10,new ActionListener(){
+		public void actionPerformed(ActionEvent e) {
+			click();
+		}
+    } );
+	
+	int plus_minus=0;
+	
+	public void click(){
+		main.m_manager.getImplementation().addMinute(plus_minus);
+	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if(e.getY()>=230){
+			if(e.getX()<=70){
+				plus_minus = -1;
+				main.m_manager.getImplementation().addMinute(plus_minus);
+				t.setInitialDelay(500);
+				t.start();
+			}
+			else if(e.getX()>=230){
+				plus_minus = 1;
+				main.m_manager.getImplementation().addMinute(plus_minus);
+				t.setInitialDelay(500);
+				t.start();
+			}
+		}	
+	}
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		t.stop();
+	}
 
 	private String m_text_message;
 
@@ -89,7 +137,7 @@ class clock_display_label extends javax.swing.JLabel
 
 class main implements Runnable
 {
-	DefaultServiceManager<Clock> m_manager;
+	static DefaultServiceManager<Clock> m_manager;
 	static clock_display_label m_clock_display_label;
 
 	// [Helper] Returns an image icon using the gui.getClass() or null 
@@ -169,6 +217,7 @@ class main implements Runnable
 			// add the bound local device to the registry
 			upnp_service.getRegistry().addDevice(create_device());
 
+			m_manager.getImplementation().setHour(12);
 			
 		} catch(Exception ex){
 			System.err.println(ex);
