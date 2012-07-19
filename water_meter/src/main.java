@@ -187,6 +187,9 @@ class main implements Runnable
 		logger.setLevel(Level.SEVERE);
 
 		JFrame frame=new JFrame("Water Meter");
+		frame.setResizable(false);
+		frame.setLocation(250, 150);
+		
 		m_wm_display_label=new wm_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

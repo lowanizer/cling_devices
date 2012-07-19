@@ -145,6 +145,9 @@ class main implements Runnable
 		logger.setLevel(Level.SEVERE);
 
 		JFrame frame=new JFrame("Door");
+		frame.setResizable(false);
+		frame.setLocation(250, 150);
+		
 		m_door_display_label=new door_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

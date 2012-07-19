@@ -187,6 +187,9 @@ class main implements Runnable
 		logger.setLevel(Level.SEVERE);
 
 		JFrame frame=new JFrame("Rain Gauge");
+		frame.setResizable(false);
+		frame.setLocation(250, 150);
+		
 		m_rain_display_label=new rain_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

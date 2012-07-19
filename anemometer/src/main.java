@@ -187,6 +187,9 @@ class main implements Runnable
 		logger.setLevel(Level.SEVERE);
 
 		JFrame frame=new JFrame("Anemometer");
+		frame.setResizable(false);
+		frame.setLocation(250, 150);
+		
 		m_wind_display_label=new wind_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

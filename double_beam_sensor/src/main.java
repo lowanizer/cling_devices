@@ -207,6 +207,9 @@ class main implements Runnable
 		logger.setLevel(Level.SEVERE);
 
 		JFrame frame=new JFrame("Double Beam Sensor");
+		frame.setResizable(false);
+		frame.setLocation(250, 150);
+		
 		m_beam_display_label=new beam_display_label("whitebg.png");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

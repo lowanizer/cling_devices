@@ -187,6 +187,9 @@ class main implements Runnable
 		logger.setLevel(Level.SEVERE);
 
 		JFrame frame=new JFrame("Luxmeter");
+		frame.setResizable(false);
+		frame.setLocation(250, 150);
+		
 		m_light_display_label=new light_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -155,6 +155,9 @@ class main implements Runnable
 		logger.setLevel(Level.SEVERE);
 
 		JFrame frame=new JFrame("GPS");
+		frame.setResizable(false);
+		frame.setLocation(250, 150);
+		
 		m_gps_display_label=new gps_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
