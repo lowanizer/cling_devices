@@ -62,7 +62,8 @@ class beam_display_label extends javax.swing.JLabel implements MouseListener
 		addMouseListener(this);
 		beam1 = true;
 		beam2 = true;
-	}
+		arrow = 0;
+	} 
 
 	protected void paintComponent(Graphics g)
 	{
@@ -100,12 +101,32 @@ class beam_display_label extends javax.swing.JLabel implements MouseListener
 		} catch (IOException e) {
 			System.out.println("Error loading image : "+e);
 		}
-		g2d.drawImage(img ,(int)d.getWidth()-275,0, null);	
+		g2d.drawImage(img ,(int)d.getWidth()-275,0, null);
+		
+		if(arrow==1){
+			img_path = "arrow_r.png";
+		}
+		else if(arrow==-1){
+			img_path = "arrow_l.png";
+		}
+		if(arrow!=0){
+			try {
+				img = ImageIO.read(new File(img_path));
+			} catch (IOException e) {
+				System.out.println("Error loading image : "+e);
+			}
+			g2d.drawImage(img ,0,(int)d.getHeight()-110, null);
+		}
 	}
 	
 	public void draw_lasers(Boolean b1, Boolean b2){
 		beam1 = b1;
 		beam2 = b2;
+		repaint();
+	}
+	
+	public void draw_arrow(int dir){
+		arrow = dir;
 		repaint();
 	}
 
@@ -130,6 +151,7 @@ class beam_display_label extends javax.swing.JLabel implements MouseListener
 	
 	private Boolean beam1;
 	private Boolean beam2;
+	private int arrow;
 }
 
 class main implements Runnable

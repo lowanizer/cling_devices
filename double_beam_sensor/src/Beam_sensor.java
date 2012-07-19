@@ -48,8 +48,14 @@ public class Beam_sensor {
     		// 2 releases = passage
     		if(r1 && r2){
     			if(side!=nbeam){ // no go-and-forth through the door : actual passage
-    				if(nbeam==1) setLastmove("exit");
-        			else setLastmove("entrance");  				
+    				if(nbeam==1){
+    					main.m_beam_display_label.draw_arrow(-1);
+    					setLastmove("exit");
+    				}
+        			else{
+        				main.m_beam_display_label.draw_arrow(1);
+        				setLastmove("entrance");  				
+        			}
     			}
 
     			side = 0;
