@@ -39,7 +39,7 @@ public class Anemometer {
     }
 
     public void addWind(int add){
-    	setWind(wind+add);
+    	if(wind>=-add) setWind(wind+add);
     }
     
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultWind"))

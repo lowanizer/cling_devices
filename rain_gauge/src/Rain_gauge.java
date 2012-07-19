@@ -38,7 +38,7 @@ public class Rain_gauge {
     }
     
     public void addRain(int add){
-    	setRaining(raining+add);
+    	if(raining>=-add) setRaining(raining+add);
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultRaining"))

@@ -38,7 +38,7 @@ public class Water_meter {
     }
     
     public void addDebit(int add){
-    	setDebit(debit+add);
+    	if(debit>=-add) setDebit(debit+add);
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultDebit"))

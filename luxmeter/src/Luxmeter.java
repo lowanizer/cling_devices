@@ -38,7 +38,7 @@ public class Luxmeter {
     }
     
     public void addLight(int add){
-    	setLight(light+add);
+    	if(light>=-add) setLight(light+add);
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultLight"))
