@@ -31,6 +31,8 @@ public class Beam_sensor {
     
     private Boolean r1 = false;
     private Boolean r2 = false;
+    private int entrances = 0;
+    private int exits = 0;
     private int side = 0;
 
     public void update_move_dir(int nbeam, Boolean new_state){
@@ -50,11 +52,13 @@ public class Beam_sensor {
     			if(side!=nbeam){ // no go-and-forth through the door : actual passage
     				if(nbeam==1){
     					main.m_beam_display_label.draw_arrow(-1);
-    					setLastmove("exit");
+    					exits++;
+    					setLastmove("exit ("+exits+")");
     				}
         			else{
         				main.m_beam_display_label.draw_arrow(1);
-        				setLastmove("entrance");  				
+        				entrances++;
+        				setLastmove("entrance ("+entrances+")");  				
         			}
     			}
 
@@ -90,10 +94,9 @@ public class Beam_sensor {
 
 	main.m_beam_display_label.draw_lasers(newTargetValue, beam2);
 
+	update_move_dir(1, beam1);
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Beam1", beamOldValue, beam1);
-    
-    update_move_dir(1, beam1);
     }
     
     @UpnpAction 
@@ -103,11 +106,10 @@ public class Beam_sensor {
         beam2 = newTargetValue;
 
 	main.m_beam_display_label.draw_lasers(beam1, newTargetValue);
-	
-	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Beam2", beamOldValue, beam2);
     
     update_move_dir(2, beam2);
+	 // This will send a UPnP event, it's the name of a state variable that sends events
+    getPropertyChangeSupport().firePropertyChange("Beam2", beamOldValue, beam2);
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultBeam1"))
