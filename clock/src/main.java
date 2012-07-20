@@ -80,13 +80,43 @@ class clock_display_label extends javax.swing.JLabel implements MouseListener
 					     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		g2d.drawString(m_text_message, (int)d.getWidth()/2-line_width/2,
-				(int)d.getHeight()/2);
+				(int)(d.getHeight()/2.5));
+		
+		g.setColor(new Color(150,0,0));
+		
+		g.drawLine(150, 150, x0, y0);
+		
+		g.drawLine(150, 150, x1, y1);
+		g.drawLine(151, 150, x1, y1);
+		g.drawLine(150, 151, x1, y1);
+		g.drawLine(149, 150, x1, y1);
+		g.drawLine(150, 149, x1, y1);
+				
+		g.drawLine(150, 150, x2, y2);
+		g.drawLine(151, 150, x2, y2);
+		g.drawLine(150, 151, x2, y2);
+		g.drawLine(149, 150, x2, y2);
+		g.drawLine(150, 149, x2, y2);
 	}
 
 	public void set_text_message(String message)
 	{
 		m_text_message=message;
 		repaint();
+	}
+	
+	public void set_needle(int hour, int minute, int second){
+		double angle = (2*Math.PI*second/60)-(Math.PI/2);
+		x0 = (int)(95*Math.cos(angle)+150);
+		y0 = (int)(95*Math.sin(angle)+150);
+		
+		angle = (2*Math.PI*(minute+(double)second/60)/60)-(Math.PI/2);
+		x1 = (int)(90*Math.cos(angle)+150);
+		y1 = (int)(90*Math.sin(angle)+150);
+		
+		angle = (2*Math.PI*(hour+(double)minute/60)/12)-(Math.PI/2);
+		x2 = (int)(50*Math.cos(angle)+150);
+		y2 = (int)(50*Math.sin(angle)+150);
 	}
 	
 	Timer t = new Timer(10,new ActionListener(){
@@ -132,7 +162,7 @@ class clock_display_label extends javax.swing.JLabel implements MouseListener
 	}
 
 	private String m_text_message;
-
+	private int x0, y0, x1, y1, x2, y2 = 150; 
 }
 
 class main implements Runnable

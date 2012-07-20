@@ -110,7 +110,7 @@ class wind_display_label extends javax.swing.JLabel implements MouseListener
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(e.getY()>=230){
+		if(e.getY()>=230 && e.getY()<=300){
 			if(e.getX()<=70){
 				plus_minus = -1;
 				main.m_manager.getImplementation().addWind(plus_minus);
@@ -139,7 +139,8 @@ class main implements Runnable
 {
 	static DefaultServiceManager<Anemometer> m_manager;
 	static wind_display_label m_wind_display_label;
-
+	static JProgressBar m_progress_bar;
+	
 	// [Helper] Returns an image icon using the gui.getClass() or null 
 	// if the path was not valid
 	public static  ImageIcon create_image_icon(String path, String description) //{{{
@@ -185,7 +186,8 @@ class main implements Runnable
 	{
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
-
+		m_progress_bar=new JProgressBar(0,200);
+		
 		JFrame frame=new JFrame("Anemometer");
 		frame.setResizable(false);
 		frame.setLocation(250, 150);
@@ -195,7 +197,12 @@ class main implements Runnable
 
 		frame.getContentPane().setBackground(java.awt.Color.white);
 		frame.getContentPane().add(m_wind_display_label, BorderLayout.CENTER);
+		frame.getContentPane().add(m_progress_bar, BorderLayout.PAGE_END);
+	//	frame.getContentPane().add(m_progress_bar, BorderLayout.CENTER);
 
+		m_progress_bar.setPreferredSize(new java.awt.Dimension(100,30));
+		m_progress_bar.setStringPainted(true);
+		
 		frame.pack();
 		frame.setVisible(true);
 
@@ -220,9 +227,8 @@ class main implements Runnable
 			// add the bound local device to the registry
 			upnp_service.getRegistry().addDevice(create_device());
 
-			int wind = 35;
+			int wind = 30;
 			m_manager.getImplementation().setWind(wind);
-		
 			
 		} catch(Exception ex){
 			System.err.println(ex);

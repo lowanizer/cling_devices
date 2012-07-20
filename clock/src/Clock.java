@@ -66,7 +66,8 @@ public class Clock {
 		}
 		
 		main.m_clock_display_label.set_text_message(df.format(hour)+":"+df.format(minute)+":"+df.format(second));
-	}
+		main.m_clock_display_label.set_needle(hour, minute, second);
+    }
     
     
     @UpnpAction

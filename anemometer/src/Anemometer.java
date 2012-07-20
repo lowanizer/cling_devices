@@ -33,6 +33,17 @@ public class Anemometer {
         wind = newTargetValue;
 
 	main.m_wind_display_label.set_text_message("Wind: "+newTargetValue+"km/h");
+	main.m_progress_bar.setValue(newTargetValue);
+	
+	if(newTargetValue<=5) main.m_progress_bar.setString("Calm");
+	else if(newTargetValue<=10) main.m_progress_bar.setString("Light breeze");
+	else if(newTargetValue<=20) main.m_progress_bar.setString("Moderate breeze");
+	else if(newTargetValue<=40) main.m_progress_bar.setString("Strong breeze");
+	else if(newTargetValue<=60) main.m_progress_bar.setString("Moderate wind");
+	else if(newTargetValue<=80) main.m_progress_bar.setString("Strong wind");
+	else if(newTargetValue<=100) main.m_progress_bar.setString("Very strong wind");
+	else if(newTargetValue<=130) main.m_progress_bar.setString("Storm");
+	else main.m_progress_bar.setString("Hurricane");
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Wind", OldValue, wind);
