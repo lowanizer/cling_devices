@@ -89,13 +89,13 @@ class temp_display_label extends javax.swing.JLabel implements MouseListener
 		repaint();
 	}
 	
-	Timer t = new Timer(25,new ActionListener(){
+	Timer t = new Timer(100,new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
 			click();
 		}
     } );
 	
-	double plus_minus=0;
+	int plus_minus=0;
 	
 	public void click(){
 		main.m_manager.getImplementation().addTemp(plus_minus);
@@ -112,13 +112,13 @@ class temp_display_label extends javax.swing.JLabel implements MouseListener
 	public void mousePressed(MouseEvent e) {
 		if(e.getY()>=130){
 			if(e.getX()<=70){
-				plus_minus = -0.1;
+				plus_minus = -1;
 				main.m_manager.getImplementation().addTemp(plus_minus);
 				t.setInitialDelay(500);
 				t.start();
 			}
 			else if(e.getX()>=280){
-				plus_minus = 0.1;
+				plus_minus = 1;
 				main.m_manager.getImplementation().addTemp(plus_minus);
 				t.setInitialDelay(500);
 				t.start();
@@ -220,7 +220,7 @@ class main implements Runnable
 			// add the bound local device to the registry
 			upnp_service.getRegistry().addDevice(create_device());
 
-			double temperature = 25.5;
+			int temperature = 25;
 			m_manager.getImplementation().setTemperature(temperature);
 		
 			

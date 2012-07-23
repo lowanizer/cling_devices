@@ -24,28 +24,26 @@ public class Water_temp {
     }
 
     @UpnpStateVariable(defaultValue = "0", sendEvents = true)
-    private double temperature = 0;
+    private int temperature = 0;
 
     @UpnpAction
-    public void setTemperature(@UpnpInputArgument(name = "NewTargetValue") double newTargetValue) {
+    public void setTemperature(@UpnpInputArgument(name = "NewTargetValue") int newTargetValue) {
 
-        double tempOldValue = temperature;
+        int tempOldValue = temperature;
         temperature = newTargetValue;
-       
-        DecimalFormat df = new DecimalFormat("##.#");
 
-	main.m_temp_display_label.set_text_message("Temperature: "+df.format(newTargetValue)+"°C");
+	main.m_temp_display_label.set_text_message("Temperature: "+newTargetValue+"°C");
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
     getPropertyChangeSupport().firePropertyChange("Temperature", tempOldValue, temperature);
     }
     
-    public void addTemp(double add){
+    public void addTemp(int add){
     	setTemperature(temperature+add);
     }
     
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultTemperature"))
-    public double getTemperature() {
+    public int getTemperature() {
         return temperature;
     }
 

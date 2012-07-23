@@ -45,18 +45,24 @@ public class Clock {
 
 
     public void update_clock(Boolean add_sec){			
-		if(add_sec) second++;
+		Boolean change_hour = false;
+    	Boolean change_minute = false;
+		
+    	if(add_sec) second++;
 		if(second>=60){
 			second = 0;
 			minute++;
+			change_minute = true;
 		}
 		if(minute>=60){
 			minute = 0;
 			hour++;
+			change_hour = true;
 		}
 		if(minute<0){
 			minute = 59;
 			hour--;
+			change_hour = true;
 		}
 		if(hour<0){
 			hour = 23;						
@@ -64,6 +70,9 @@ public class Clock {
 		if(hour>=24){
 			hour = 0;						
 		}
+		
+		if(change_minute) getPropertyChangeSupport().firePropertyChange("Minute", minute-1, minute);
+		if(change_hour) getPropertyChangeSupport().firePropertyChange("Hour", hour-1, hour);
 		
 		main.m_clock_display_label.set_text_message(df.format(hour)+":"+df.format(minute)+":"+df.format(second));
 		main.m_clock_display_label.set_needle(hour, minute, second);
