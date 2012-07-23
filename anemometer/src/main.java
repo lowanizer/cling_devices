@@ -158,7 +158,7 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo Anemometer"));
+				UDN.uniqueSystemIdentifier("Demo Anemometer"+Math.random()));
 
 		DeviceType type=new UDADeviceType("Anemometer", 1);
 

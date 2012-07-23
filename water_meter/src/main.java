@@ -157,7 +157,7 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo water meter"));
+				UDN.uniqueSystemIdentifier("Demo water meter"+Math.random()));
 
 		DeviceType type=new UDADeviceType("Water_Meter", 1);
 

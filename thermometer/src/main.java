@@ -157,7 +157,7 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo Thermometer"));
+				UDN.uniqueSystemIdentifier("Demo Thermometer"+Math.random()));
 
 		DeviceType type=new UDADeviceType("Thermometer", 1);
 

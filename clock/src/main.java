@@ -187,7 +187,7 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo clock"));
+				UDN.uniqueSystemIdentifier("Demo clock"+Math.random()));
 
 		DeviceType type=new UDADeviceType("Clock", 1);
 

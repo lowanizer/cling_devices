@@ -157,7 +157,7 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo Luxmeter"));
+				UDN.uniqueSystemIdentifier("Demo Luxmeter"+Math.random()));
 
 		DeviceType type=new UDADeviceType("Luxmeter", 1);
 

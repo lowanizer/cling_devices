@@ -125,7 +125,7 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo GPS"));
+				UDN.uniqueSystemIdentifier("Demo GPS"+Math.random()));
 
 		DeviceType type=new UDADeviceType("Gps", 1);
 
