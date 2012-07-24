@@ -33,6 +33,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -47,6 +49,8 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.*;
@@ -61,7 +65,7 @@ class door_display_label extends javax.swing.JLabel implements MouseListener
 		open_icon=main.create_image_icon("door_opened.png", "Window");
 		close_icon=main.create_image_icon("door_closed.png", "Window");
 		addMouseListener(this);
-		
+		  
 		setIcon(close_icon);
 		closed = true;
 	}
@@ -75,6 +79,7 @@ class door_display_label extends javax.swing.JLabel implements MouseListener
 	private Boolean closed;
 	private ImageIcon open_icon;
 	private ImageIcon close_icon;
+	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -97,7 +102,7 @@ class main implements Runnable
 	static DefaultServiceManager<Door> m_manager;
 	static door_display_label m_door_display_label;
 	static JFrame frame;
-
+	
 	// [Helper] Returns an image icon using the gui.getClass() or null 
 	// if the path was not valid
 	public static ImageIcon create_image_icon(String path, String description) //{{{
@@ -144,6 +149,16 @@ class main implements Runnable
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
 
+		String metaData = "location=kitchen&owner=alice";
+		
+		final JTextField textField = new JTextField(metaData);
+		textField.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				m_manager.getImplementation().setMetaData(textField.getText());		
+			}
+		});
+
 		JFrame frame=new JFrame("Door");
 		frame.setResizable(false);
 		frame.setLocation(250, 150);
@@ -153,6 +168,7 @@ class main implements Runnable
 
 		frame.getContentPane().setBackground(java.awt.Color.white);
 		frame.getContentPane().add(m_door_display_label, BorderLayout.CENTER);
+		frame.getContentPane().add(textField, BorderLayout.PAGE_END);
 
 		frame.pack();
 		frame.setVisible(true);

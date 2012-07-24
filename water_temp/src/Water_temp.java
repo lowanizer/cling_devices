@@ -47,8 +47,13 @@ public class Water_temp {
         return temperature;
     }
 
-    @UpnpStateVariable(defaultValue="type=Display", sendEvents=true)
-    private String MetaData = "type=Display";
+    public void setMetaData(String text){
+    	MetaData = text;
+    	getPropertyChangeSupport().firePropertyChange("MetaData", "", text);
+    }
+    
+    @UpnpStateVariable(defaultValue="", sendEvents=true)
+    private String MetaData = "location=bathroom&owner=alice";
 
     @UpnpAction(out=@UpnpOutputArgument(name="ResultMetaData"))
     public String getMetaData()

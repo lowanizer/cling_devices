@@ -33,6 +33,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -47,6 +49,8 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.*;
@@ -152,6 +156,17 @@ class main implements Runnable
 
 		//frame.getContentPane().setBackground(java.awt.Color.white);
 		frame.getContentPane().add(m_window_display_label, BorderLayout.CENTER);
+		
+		String metaData = "location=livingroom&owner=alice";
+		
+		final JTextField textField = new JTextField(metaData);
+		textField.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				m_manager.getImplementation().setMetaData(textField.getText());		
+			}
+		});
+		frame.getContentPane().add(textField, BorderLayout.PAGE_END);
 
 		frame.pack();
 		frame.setVisible(true);

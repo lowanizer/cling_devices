@@ -32,6 +32,7 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import java.awt.Graphics;
@@ -195,6 +196,17 @@ class main implements Runnable
 
 		frame.getContentPane().setBackground(java.awt.Color.white);
 		frame.getContentPane().add(m_temp_display_label, BorderLayout.CENTER);
+		
+		String metaData = "location=garden&owner=bob";
+		
+		final JTextField textField = new JTextField(metaData);
+		textField.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				m_manager.getImplementation().setMetaData(textField.getText());		
+			}
+		});
+		frame.getContentPane().add(textField, BorderLayout.PAGE_END);
 
 		frame.pack();
 		frame.setVisible(true);
