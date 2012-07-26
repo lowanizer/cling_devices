@@ -29,83 +29,78 @@ import org.teleal.cling.model.action.ActionInvocation;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Dimension;
-import java.awt.Image;
 
 import javax.swing.JProgressBar;
 import java.awt.Graphics2D;
 import java.awt.BorderLayout;
 
 import java.beans.PropertyChangeSupport;
-import java.io.File;
-import java.io.IOException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.*;
-import java.awt.image.BufferedImage;
 import java.awt.*;
 
-class door_display_label extends javax.swing.JLabel implements MouseListener
+class check_display_label extends javax.swing.JLabel
 {
-	
-	public door_display_label()
+	public check_display_label()
 	{
-		open_icon=main.create_image_icon("door_opened.png", "Window");
-		close_icon=main.create_image_icon("door_closed.png", "Window");
-		addMouseListener(this);
-		  
-		setIcon(close_icon);
-		closed = true;
+		super(main.create_image_icon("metachecker.png", "MetaChecker"));
+		m_text_message="";
 	}
 
-	
-	public void draw_door(Boolean c){
-		closed = c;
-		setIcon(c?close_icon:open_icon);
+	protected void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		if(m_text_message.equals("")) return;
+
+		Font f = new Font("SansSerif", Font.PLAIN, 28);
+		g.setFont(f);
+		FontMetrics fm=g.getFontMetrics();
+
+		final Dimension d=getSize();
+
+		final int line_height=fm.getHeight();
+		final int line_width=fm.stringWidth(m_text_message);
+
+		Graphics2D g2d=(Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+					     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+		g2d.drawString(m_text_message, (int)d.getWidth()/2-line_width/2,
+				(int)d.getHeight()/2);
 	}
 
-	private Boolean closed;
-	private ImageIcon open_icon;
-	private ImageIcon close_icon;
-	
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		main.m_manager.getImplementation().setClosed(!closed);
+	public void set_text_message(String message)
+	{
+		m_text_message=message;
+		repaint();
 	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-	@Override
-	public void mouseExited(MouseEvent e) {}
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	
+
+	private String m_text_message;
+
 }
 
 class main implements Runnable
 {
-	static DefaultServiceManager<Door> m_manager;
-	static door_display_label m_door_display_label;
-	static JFrame frame;
-	
+	static DefaultServiceManager<MetaChecker> m_manager;
+	static check_display_label m_check_display_label;
+
 	// [Helper] Returns an image icon using the gui.getClass() or null 
 	// if the path was not valid
-	public static ImageIcon create_image_icon(String path, String description) //{{{
+	public static  ImageIcon create_image_icon(String path, String description) //{{{
 	{
 		java.net.URL img_url=main.class.getResource(path);
 		if(img_url!=null) return new ImageIcon(img_url, description);
@@ -120,23 +115,23 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo Door"+Math.random()));
+				UDN.uniqueSystemIdentifier("MetaChecker"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Door", 1);
+		DeviceType type=new UDADeviceType("MetaChecker", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Door",
+				"MetaChecker",
 				new ManufacturerDetails("ACME"),
-				new ModelDetails("Door 2100",
-					"A friendly Door",
+				new ModelDetails("MetaChecker",
+					"A friendly MetaChecker",
 					"v1"));
 			
-		LocalService<Door> display_service=
-			(LocalService<Door>)
-			new AnnotationLocalServiceBinder().read(Door.class);
+		LocalService<MetaChecker> display_service=
+			(LocalService<MetaChecker>)
+			new AnnotationLocalServiceBinder().read(MetaChecker.class);
 
-		m_manager=new DefaultServiceManager<Door>(display_service,
-				Door.class);
+		m_manager=new DefaultServiceManager<MetaChecker>(display_service,
+				MetaChecker.class);
 
 		display_service.setManager(m_manager);
 
@@ -149,26 +144,14 @@ class main implements Runnable
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
 
-		String metaData = "location=kitchen&owner=alice";
-		
-		final JTextField textField = new JTextField(metaData);
-		textField.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				m_manager.getImplementation().setMetaData(textField.getText());		
-			}
-		});
-
-		JFrame frame=new JFrame("Door");
-		frame.setResizable(false);
+		JFrame frame=new JFrame("MetaChecker");
 		frame.setLocation(250, 150);
 		
-		m_door_display_label=new door_display_label();
+		m_check_display_label=new check_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.getContentPane().setBackground(java.awt.Color.white);
-		frame.getContentPane().add(m_door_display_label, BorderLayout.CENTER);
-		frame.getContentPane().add(textField, BorderLayout.PAGE_END);
+		frame.getContentPane().add(m_check_display_label, BorderLayout.CENTER);
 
 		frame.pack();
 		frame.setVisible(true);
@@ -193,11 +176,7 @@ class main implements Runnable
 
 			// add the bound local device to the registry
 			upnp_service.getRegistry().addDevice(create_device());
-
-String[] cond = "ddqz&ikjj&nhsbd".split("&");
-	       				
-			Boolean closed = true;
-			m_manager.getImplementation().setClosed(closed);
+			
 			
 		} catch(Exception ex){
 			System.err.println(ex);
