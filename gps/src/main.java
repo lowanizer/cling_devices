@@ -32,6 +32,8 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -43,6 +45,8 @@ import java.awt.BorderLayout;
 
 import java.beans.PropertyChangeSupport;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.*;
 import java.awt.*;
 
@@ -105,7 +109,7 @@ class gps_display_label extends javax.swing.JLabel
 
 class main implements Runnable
 {
-	DefaultServiceManager<Gps> m_manager;
+	static DefaultServiceManager<Gps> m_manager;
 	static gps_display_label m_gps_display_label;
 
 	// [Helper] Returns an image icon using the gui.getClass() or null 
@@ -163,6 +167,17 @@ class main implements Runnable
 
 		frame.getContentPane().setBackground(java.awt.Color.white);
 		frame.getContentPane().add(m_gps_display_label, BorderLayout.CENTER);
+		
+		String metaData = "location=car&owner=maurice";
+		
+		final JTextField textField = new JTextField(metaData);
+		textField.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				m_manager.getImplementation().setMetaData(textField.getText());		
+			}
+		});
+		frame.getContentPane().add(textField, BorderLayout.PAGE_END);
 
 		frame.pack();
 		frame.setVisible(true);

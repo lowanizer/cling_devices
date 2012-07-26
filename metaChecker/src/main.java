@@ -53,12 +53,11 @@ import java.awt.event.MouseListener;
 import java.awt.font.*;
 import java.awt.*;
 
-class light_display_label extends javax.swing.JLabel implements MouseListener
+class check_display_label extends javax.swing.JLabel
 {
-	public light_display_label()
+	public check_display_label()
 	{
-		super(main.create_image_icon("luxmeter.png", "Luxmeter"));
-		addMouseListener(this);
+		super(main.create_image_icon("metachecker.png", "MetaChecker"));
 		m_text_message="";
 	}
 
@@ -67,7 +66,7 @@ class light_display_label extends javax.swing.JLabel implements MouseListener
 		super.paintComponent(g);
 		if(m_text_message.equals("")) return;
 
-		Font f = new Font("SansSerif", Font.PLAIN, 33);
+		Font f = new Font("SansSerif", Font.PLAIN, 28);
 		g.setFont(f);
 		FontMetrics fm=g.getFontMetrics();
 
@@ -89,48 +88,6 @@ class light_display_label extends javax.swing.JLabel implements MouseListener
 		m_text_message=message;
 		repaint();
 	}
-	
-	Timer t = new Timer(25,new ActionListener(){
-		public void actionPerformed(ActionEvent e) {
-			click();
-		}
-    } );
-	
-	int plus_minus=0;
-	
-	public void click(){
-		main.m_manager.getImplementation().addLight(plus_minus);
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {}
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-	@Override
-	public void mouseExited(MouseEvent e) {}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		if(e.getY()>=280){
-			if(e.getX()<=70){
-				plus_minus = -100;
-				main.m_manager.getImplementation().addLight(plus_minus);
-				t.setInitialDelay(500);
-				t.start();				
-			}
-			else if(e.getX()>=280){
-				plus_minus = 100;
-				main.m_manager.getImplementation().addLight(plus_minus);
-				t.setInitialDelay(500);
-				t.start();
-			}
-		}	
-	}
-	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		t.stop();
-	}
 
 	private String m_text_message;
 
@@ -138,8 +95,8 @@ class light_display_label extends javax.swing.JLabel implements MouseListener
 
 class main implements Runnable
 {
-	static DefaultServiceManager<Luxmeter> m_manager;
-	static light_display_label m_light_display_label;
+	static DefaultServiceManager<MetaChecker> m_manager;
+	static check_display_label m_check_display_label;
 
 	// [Helper] Returns an image icon using the gui.getClass() or null 
 	// if the path was not valid
@@ -158,23 +115,23 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo Luxmeter"+Math.random()));
+				UDN.uniqueSystemIdentifier("MetaChecker"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Luxmeter", 1);
+		DeviceType type=new UDADeviceType("MetaChecker", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Luxmeter",
+				"MetaChecker",
 				new ManufacturerDetails("ACME"),
-				new ModelDetails("Flash 2567",
-					"A friendly Luxmeter",
+				new ModelDetails("MetaChecker",
+					"A friendly MetaChecker",
 					"v1"));
 			
-		LocalService<Luxmeter> display_service=
-			(LocalService<Luxmeter>)
-			new AnnotationLocalServiceBinder().read(Luxmeter.class);
+		LocalService<MetaChecker> display_service=
+			(LocalService<MetaChecker>)
+			new AnnotationLocalServiceBinder().read(MetaChecker.class);
 
-		m_manager=new DefaultServiceManager<Luxmeter>(display_service,
-				Luxmeter.class);
+		m_manager=new DefaultServiceManager<MetaChecker>(display_service,
+				MetaChecker.class);
 
 		display_service.setManager(m_manager);
 
@@ -187,26 +144,14 @@ class main implements Runnable
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
 
-		JFrame frame=new JFrame("Luxmeter");
-		frame.setResizable(false);
+		JFrame frame=new JFrame("MetaChecker");
 		frame.setLocation(250, 150);
 		
-		m_light_display_label=new light_display_label();
+		m_check_display_label=new check_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.getContentPane().setBackground(java.awt.Color.white);
-		frame.getContentPane().add(m_light_display_label, BorderLayout.CENTER);
-		
-		String metaData = "location=garden&owner=bob";
-		
-		final JTextField textField = new JTextField(metaData);
-		textField.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				m_manager.getImplementation().setMetaData(textField.getText());		
-			}
-		});
-		frame.getContentPane().add(textField, BorderLayout.PAGE_END);
+		frame.getContentPane().add(m_check_display_label, BorderLayout.CENTER);
 
 		frame.pack();
 		frame.setVisible(true);
@@ -231,10 +176,7 @@ class main implements Runnable
 
 			// add the bound local device to the registry
 			upnp_service.getRegistry().addDevice(create_device());
-
-			int light = 15000;
-			m_manager.getImplementation().setLight(light);
-
+			
 			
 		} catch(Exception ex){
 			System.err.println(ex);

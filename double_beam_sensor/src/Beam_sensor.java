@@ -127,9 +127,14 @@ public class Beam_sensor {
         return lastmove;
     }
 
-    @UpnpStateVariable(defaultValue="type=Display", sendEvents=true)
-    private String MetaData = "type=Display";
-
+    public void setMetaData(String text){
+    	MetaData = text;
+    	getPropertyChangeSupport().firePropertyChange("MetaData", "", text);
+    }
+    
+    @UpnpStateVariable(defaultValue="", sendEvents=true)
+    private String MetaData = "location=bedroom&owner=charlie";
+    
     @UpnpAction(out=@UpnpOutputArgument(name="ResultMetaData"))
     public String getMetaData()
     { return MetaData; }
