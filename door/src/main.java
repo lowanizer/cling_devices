@@ -193,9 +193,7 @@ class main implements Runnable
 
 			// add the bound local device to the registry
 			upnp_service.getRegistry().addDevice(create_device());
-
-String[] cond = "ddqz&ikjj&nhsbd".split("&");
-	       				
+   				
 			Boolean closed = true;
 			m_manager.getImplementation().setClosed(closed);
 			
