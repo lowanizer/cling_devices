@@ -32,6 +32,8 @@ namespace WComp.Beans
 		/// </summary>
 		private bool actionbool;
 		private int actionint;
+		private String actionstring;
+		
 		private String metadata;
 		private bool fireOnce = false;
 		private bool MDfired = false;
@@ -62,6 +64,13 @@ namespace WComp.Beans
 				actionint = value;
 			}
 		}
+		public String Myactionstring {
+			get { return actionstring; }
+			set {
+				actionstring = value;
+			}
+		}
+		
 		public String Mymetadata {
 			get { return metadata; }
 			set {
@@ -97,7 +106,7 @@ namespace WComp.Beans
 		/// </summary>
 		public delegate void MetadataEventHandler(String str);
 		/// <summary>
-		/// the following declaration is the event by itself. Its name, here "PropertyChanged",
+		/// the following declaration is the event by itself. Its name, here "MetadataEventHandler",
 		/// is the name of the event as it will be displayed in the bean type's interface.
 		/// </summary>
 		public event MetadataEventHandler MDChanged;
@@ -110,15 +119,19 @@ namespace WComp.Beans
 		
 		public delegate void ActionboolEventHandler(bool b);
 		public delegate void ActionintEventHandler(int i);
+		public delegate void ActionstringEventHandler(String s);
 
 		public event ActionboolEventHandler MakeActionbool;
 		public event ActionintEventHandler MakeActionint;
+		public event ActionstringEventHandler MakeActionstring;
 		
 		private void FireActionEvent() {
 			if (MakeActionbool != null)
 				MakeActionbool(actionbool);
 			if (MakeActionint != null)
 				MakeActionint(actionint);
+			if (MakeActionstring != null)
+				MakeActionstring(actionstring);
 		}
 	}
 }

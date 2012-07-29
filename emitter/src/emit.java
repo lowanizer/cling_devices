@@ -34,5 +34,17 @@ public class emit {
     public boolean getStatus() {
         return status;
     }
+    
+    public void setMetaData(String text){
+    	MetaData = text;
+    	getPropertyChangeSupport().firePropertyChange("MetaData", "", text);
+    }
+
+    @UpnpStateVariable(defaultValue="none", sendEvents=true)
+    private String MetaData = "location=kitchen&owner=alice";
+
+    @UpnpAction(out=@UpnpOutputArgument(name="ResultMetaData"))
+    public String getMetaData()
+    { return MetaData; }
 
 }
