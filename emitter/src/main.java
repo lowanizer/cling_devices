@@ -69,10 +69,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Emitter"));
 
-		DeviceType type=new UDADeviceType("Emitter", 1);
+		DeviceType type=new UDADeviceType("emitter", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Emitter",
+				"emitter",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Emitter 4000",
 					"A friendly Emitter",

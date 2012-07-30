@@ -160,10 +160,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo Luxmeter"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Luxmeter", 1);
+		DeviceType type=new UDADeviceType("luxmeter", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Luxmeter",
+				"luxmeter",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Flash 2567",
 					"A friendly Luxmeter",

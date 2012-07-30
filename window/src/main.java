@@ -120,10 +120,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo Window"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Window", 1);
+		DeviceType type=new UDADeviceType("window", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Window",
+				"window",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Window 2100",
 					"A friendly Window",

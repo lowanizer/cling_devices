@@ -183,10 +183,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo Beam sensor"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Beam_sensor", 1);
+		DeviceType type=new UDADeviceType("double_beam_sensor", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Double Beam Sensor",
+				"double_beam_sensor",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Lazers 7000",
 					"A friendly Double Beam Sensor",

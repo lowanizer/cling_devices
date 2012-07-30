@@ -190,10 +190,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo clock"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Clock", 1);
+		DeviceType type=new UDADeviceType("clock", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Clock",
+				"clock",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Tictac 9500",
 					"A friendly Clock",

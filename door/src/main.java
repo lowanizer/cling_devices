@@ -122,10 +122,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo Door"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Door", 1);
+		DeviceType type=new UDADeviceType("door", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Door",
+				"door",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Door 2100",
 					"A friendly Door",

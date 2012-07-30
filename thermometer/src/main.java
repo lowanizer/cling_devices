@@ -160,10 +160,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo Thermometer"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Thermometer", 1);
+		DeviceType type=new UDADeviceType("thermometer", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Thermometer",
+				"thermometer",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Kelvin 6500",
 					"A friendly Thermometer",

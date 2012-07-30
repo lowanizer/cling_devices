@@ -160,10 +160,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo Rain gauge"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Rain_gauge", 1);
+		DeviceType type=new UDADeviceType("rain_gauge", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Rain Gauge",
+				"rain_gauge",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Raining 2000",
 					"A friendly Rain Gauge",

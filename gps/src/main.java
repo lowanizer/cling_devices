@@ -131,10 +131,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo GPS"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Gps", 1);
+		DeviceType type=new UDADeviceType("gps", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly GPS",
+				"gps",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("TamTam 9000",
 					"A friendly GPS",

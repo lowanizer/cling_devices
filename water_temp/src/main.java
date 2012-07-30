@@ -160,10 +160,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo water thermometer"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Water_temp", 1);
+		DeviceType type=new UDADeviceType("water_thermometer", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Water Thermometer",
+				"water_thermometer",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Hotcold 6000",
 					"A friendly Water Thermometer",

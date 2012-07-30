@@ -161,10 +161,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo Anemometer"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Anemometer", 1);
+		DeviceType type=new UDADeviceType("anemometer", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Anemometer",
+				"anemometer",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Tornado 1900",
 					"A friendly Anemometer",

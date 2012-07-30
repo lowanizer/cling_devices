@@ -160,10 +160,10 @@ class main implements Runnable
 		DeviceIdentity identity = new DeviceIdentity(
 				UDN.uniqueSystemIdentifier("Demo water meter"+Math.random()));
 
-		DeviceType type=new UDADeviceType("Water_Meter", 1);
+		DeviceType type=new UDADeviceType("water_meter", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly Water Meter",
+				"water_meter",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("Plic ploc 5000",
 					"A friendly Water Meter",
