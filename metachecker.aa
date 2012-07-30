@@ -1,16 +1,15 @@
 emitter = friendly_Emitter*
 window = friendly_Window*
-meta = metaChecker*
 
-advice metachecker(emitter,window,meta) :
+advice metachecker(emitter,window) :
 valueEmitter : WComp.BasicBeans.PrimitiveValueEmitter(StringValue:="owner=alice&location=livingroom")
+meta : WComp.Beans.metachecker
 
 emitter.^Status_Evented_NewValue -> (valueEmitter.FireValueEvent)
-valueEmitter.^EmitBoolValue -> (meta.SetActionbool)
-valueEmitter.^EmitStringValue -> (meta.SetMetaData)
-meta.^MetaData_Evented_NewValue -> (window.GetMetaData)
-window.^GetMetaData_Return -> (meta.CheckMetadata)
-window.^MetaData_Evented_NewValue -> (meta.CheckMetadata)
-meta.^Event_Evented_NewValue -> (meta.MakeActionBool)
-meta.^MakeActionBool_Return -> (window.SetClosed)
+valueEmitter.^EmitBoolValue -> (meta.set_Myactionbool)
+valueEmitter.^EmitStringValue -> (meta.set_Mymetadata)
+meta.^MDChanged -> (window.GetMetaData)
+window.^GetMetaData_Return -> (meta.checkMetaData)
+window.^MetaData_Evented_NewValue -> (meta.checkMetaData)
+meta.^MakeActionbool -> (window.SetClosed)
 window.^Closed_Evented_NewValue -> (window.GetMetaData)
