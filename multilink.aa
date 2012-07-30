@@ -1,18 +1,18 @@
-door = friendly_Door*
-window = friendly_Window*
+emitter = emitter*
+window = window*
 
-advice multilink(door,window):
+advice multilink(emitter,window):
 valueEmitterA : WComp.BasicBeans.PrimitiveValueEmitter(StringValue:="location=kitchen")
 metaA : WComp.Beans.metachecker
 valueEmitterB : WComp.BasicBeans.PrimitiveValueEmitter(StringValue:="owner=alice")
 metaB : WComp.Beans.metachecker
 
-door.^Closed_Evented_NewValue -> (metaA.set_Myactionbool)
-door.^Closed_Evented_NewValue -> (valueEmitterA.FireValueEvent)
+emitter.^Status_Evented_NewValue -> (metaA.set_Myactionbool)
+emitter.^Status_Evented_NewValue -> (valueEmitterA.FireValueEvent)
 valueEmitterA.^EmitStringValue -> (metaA.set_Mymetadata)
 
-metaA.^MDChanged -> (door.GetMetaData)
-door.^GetMetaData_Return -> (metaA.checkMetaData)
+metaA.^MDChanged -> (emitter.GetMetaData)
+emitter.^GetMetaData_Return -> (metaA.checkMetaData)
 
 
 metaA.^MakeActionbool -> (metaB.set_Myactionbool)
