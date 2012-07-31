@@ -23,11 +23,18 @@ public class emit {
     @UpnpStateVariable(defaultValue = "false", sendEvents = true)
     private boolean status = false;
 
+    @UpnpStateVariable(defaultValue = "0", sendEvents = true)
+    private String state = "0";
+
     @UpnpAction
     public void emit()
     {
-	    getPropertyChangeSupport().firePropertyChange("Status", status, !status);
 	    status=!status;
+	    getPropertyChangeSupport().firePropertyChange("Status", status, !status);
+
+	    String old_state=state;
+	    state=state.equals("0")?"1":"0";
+	    getPropertyChangeSupport().firePropertyChange("State", old_state, state);
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultStatus"))
