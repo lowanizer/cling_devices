@@ -32,6 +32,8 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -43,12 +45,14 @@ import java.awt.BorderLayout;
 
 import java.beans.PropertyChangeSupport;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.*;
 import java.awt.*;
 
 class main implements Runnable
 {
-	DefaultServiceManager<emit> m_manager;
+	static DefaultServiceManager<emit> m_manager;
 
 	// [Helper] Returns an image icon using the gui.getClass() or null 
 	// if the path was not valid
@@ -94,6 +98,16 @@ class main implements Runnable
 	{
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
+		
+		String metaData = "location=kitchen&owner=alice";
+		
+		final JTextField textField = new JTextField(metaData);
+		textField.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				m_manager.getImplementation().setMetaData(textField.getText());		
+			}
+		});
 
 		JFrame frame=new JFrame("Emitter");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,6 +115,7 @@ class main implements Runnable
 		frame.getContentPane().setBackground(java.awt.Color.white);
 		frame.getContentPane().add(new JLabel(create_image_icon("emitter.png","Emitter")),
 					BorderLayout.CENTER);
+		frame.getContentPane().add(textField, BorderLayout.PAGE_END);
 		frame.pack();
 		frame.setVisible(true);
 
