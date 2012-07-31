@@ -34,6 +34,8 @@ public class Clock {
     private int minute = 0;
     @UpnpStateVariable(defaultValue = "0", sendEvents = true)
     private int second = 0;
+    @UpnpStateVariable(defaultValue = "0", sendEvents = true)
+    private String state = "12:00:00";
     
     private DecimalFormat df = new DecimalFormat("00");
     
@@ -44,10 +46,16 @@ public class Clock {
     } );
 
 
+    // returns the current time in the form of "12:33"
+    private String current_time_to_string()
+    {
+	    return df.format(hour)+":"+df.format(minute);
+    }
+
     public void update_clock(Boolean add_sec){			
 		Boolean change_hour = false;
     	Boolean change_minute = false;
-		
+
     	if(add_sec) second++;
 		if(second>=60){
 			second = 0;
@@ -71,8 +79,12 @@ public class Clock {
 			hour = 0;						
 		}
 		
+		String old_state=state;
+		state=current_time_to_string();
+
 		if(change_minute) getPropertyChangeSupport().firePropertyChange("Minute", minute-1, minute);
 		if(change_hour) getPropertyChangeSupport().firePropertyChange("Hour", hour-1, hour);
+		getPropertyChangeSupport().firePropertyChange("State", old_state, state);
 		
 		main.m_clock_display_label.set_text_message(df.format(hour)+":"+df.format(minute)+":"+df.format(second));
 		main.m_clock_display_label.set_needle(hour, minute, second);

@@ -26,11 +26,17 @@ public class Anemometer {
     @UpnpStateVariable(defaultValue = "0", sendEvents = true)
     private int wind = 0;
 
+    @UpnpStateVariable(defaultValue = "0 km/h", sendEvents = true)
+    private String state = "0 km/h";
+
     @UpnpAction
     public void setWind(@UpnpInputArgument(name = "NewTargetValue") int newTargetValue) {
 
         int OldValue = wind;
         wind = newTargetValue;
+
+	String state_old_value=state;
+	state=wind+" km/h";
 
 	main.m_wind_display_label.set_text_message("Wind: "+newTargetValue+"km/h");
 	main.m_progress_bar.setValue(newTargetValue);
@@ -46,7 +52,8 @@ public class Anemometer {
 	else main.m_progress_bar.setString("Hurricane");
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Wind", OldValue, wind);
+	getPropertyChangeSupport().firePropertyChange("Wind", OldValue, wind);
+	getPropertyChangeSupport().firePropertyChange("State", state_old_value, state);
     }
 
     public void addWind(int add){

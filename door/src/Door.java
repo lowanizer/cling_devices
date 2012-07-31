@@ -25,6 +25,8 @@ public class Door {
     @UpnpStateVariable(defaultValue = "true", sendEvents = true)
     private Boolean closed = true;
   
+    @UpnpStateVariable(defaultValue = "Closed", sendEvents = true)
+    private String state = "Closed";
     
     @UpnpAction
     public void setClosed(@UpnpInputArgument(name = "NewTargetValue") Boolean newTargetValue) {
@@ -32,10 +34,15 @@ public class Door {
         Boolean OldValue = closed;
         closed = newTargetValue;
 
+	String old_state=state;
+	state=closed?"Closed":"Open";
+
 	main.m_door_display_label.draw_door(newTargetValue);
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Closed", OldValue, closed);
+	getPropertyChangeSupport().firePropertyChange("Closed", OldValue, closed);
+	getPropertyChangeSupport().firePropertyChange("State", old_state, state);
+
     }
     
 

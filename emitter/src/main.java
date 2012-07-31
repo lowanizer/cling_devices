@@ -67,7 +67,7 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Emitter"));
+				UDN.uniqueSystemIdentifier("Emitter"+Math.random()));
 
 		DeviceType type=new UDADeviceType("emitter", 1);
 

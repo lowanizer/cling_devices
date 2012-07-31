@@ -25,16 +25,23 @@ public class Luxmeter {
     @UpnpStateVariable(defaultValue = "0", sendEvents = true)
     private int light = 0;
 
+    @UpnpStateVariable(defaultValue = "0 lumens", sendEvents = true)
+    private String state = "0 luments";
+
     @UpnpAction
     public void setLight(@UpnpInputArgument(name = "NewTargetValue") int newTargetValue) {
 
         int OldValue = light;
         light = newTargetValue;
 
+	String old_state=state;
+	state=light+" lumens";
+
 	main.m_light_display_label.set_text_message("Light: "+newTargetValue+" lumens");
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Light", OldValue, light);
+	getPropertyChangeSupport().firePropertyChange("Light", OldValue, light);
+	getPropertyChangeSupport().firePropertyChange("Light", old_state, state);
     }
     
     public void addLight(int add){

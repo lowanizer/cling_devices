@@ -25,16 +25,23 @@ public class Water_meter {
     @UpnpStateVariable(defaultValue = "0", sendEvents = true)
     private int debit = 0;
 
+    @UpnpStateVariable(defaultValue = "0 L/min", sendEvents = true)
+    private String state = "0 L/min";
+
     @UpnpAction
     public void setDebit(@UpnpInputArgument(name = "NewTargetValue") int newTargetValue) {
 
         int debitOldValue = debit;
         debit = newTargetValue;
 
+	String old_state=state;
+	state=debit+" L/min";
+
 	main.m_wm_display_label.set_text_message("Debit: "+newTargetValue+" L/min");
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Debit", debitOldValue, debit);
+	getPropertyChangeSupport().firePropertyChange("Debit", debitOldValue, debit);
+	getPropertyChangeSupport().firePropertyChange("State", old_state, state);
     }
     
     public void addDebit(int add){

@@ -26,16 +26,23 @@ public class Thermometer {
     @UpnpStateVariable(defaultValue = "0", sendEvents = true)
     private int temperature = 0;
 
+    @UpnpStateVariable(defaultValue = "0 C", sendEvents = true)
+    private String state = "0 C";
+
     @UpnpAction
     public void setTemperature(@UpnpInputArgument(name = "NewTargetValue") int newTargetValue) {
 
         int tempOldValue = temperature;
         temperature = newTargetValue;
 
+	String old_state=state;
+	state=temperature+" C";
+
 	main.m_temp_display_label.set_text_message("Temperature: "+newTargetValue+"°C");
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Temperature", tempOldValue, temperature);
+	getPropertyChangeSupport().firePropertyChange("Temperature", tempOldValue, temperature);
+	getPropertyChangeSupport().firePropertyChange("State", old_state, state);
     }
     
     public void addTemp(int add){

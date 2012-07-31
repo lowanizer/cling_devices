@@ -24,10 +24,14 @@ public class Gps {
 
     @UpnpStateVariable(defaultValue = "0", sendEvents = true, name="lastwait")
     private int lastwait = 0;
-    @UpnpStateVariable(defaultValue = "unknow", sendEvents = true, name="lastloc")
-    private String lastloc = "unknow";
-    @UpnpStateVariable(defaultValue = "unknow", sendEvents = true, name="location")
-    private String location = "unknow";
+    @UpnpStateVariable(defaultValue = "unknown", sendEvents = true, name="lastloc")
+    private String lastloc = "unknown";
+    @UpnpStateVariable(defaultValue = "unknown", sendEvents = true, name="location")
+    private String location = "unknown";
+
+    @UpnpStateVariable(defaultValue = "unknown", sendEvents = true)
+    private String state = "unknown";
+
 
     @UpnpAction
     public void setLastwait(@UpnpInputArgument(name = "lastwait") int newTargetValue) {
@@ -59,10 +63,13 @@ public class Gps {
         String OldValue = location;
         location = newTargetValue;
 
+	state=location;
+
 	main.m_gps_display_label.set_text_messagel3("Current location: "+newTargetValue);
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Location", OldValue, location);
+	getPropertyChangeSupport().firePropertyChange("Location", OldValue, location);
+	getPropertyChangeSupport().firePropertyChange("State", OldValue, state);
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "lastwait"))

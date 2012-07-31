@@ -25,16 +25,23 @@ public class Rain_gauge {
     @UpnpStateVariable(defaultValue = "0", sendEvents = true)
     private int raining = 0;
 
+    @UpnpStateVariable(defaultValue = "0 cm/h", sendEvents = true)
+    private String state = "0 cm/h";
+
     @UpnpAction
     public void setRaining(@UpnpInputArgument(name = "NewTargetValue") int newTargetValue) {
 
         int OldValue = raining;
         raining = newTargetValue;
 
+	String old_state=state;
+	state=raining+" cm/h";
+
 	main.m_rain_display_label.set_text_message("Raining: "+newTargetValue+" cm/h");
 
 	 // This will send a UPnP event, it's the name of a state variable that sends events
-    getPropertyChangeSupport().firePropertyChange("Raining", OldValue, raining);
+	getPropertyChangeSupport().firePropertyChange("Raining", OldValue, raining);
+	getPropertyChangeSupport().firePropertyChange("State", old_state, state);
     }
     
     public void addRain(int add){
