@@ -109,12 +109,12 @@ class main implements Runnable
 		Exception
 	{
 		DeviceIdentity identity = new DeviceIdentity(
-				UDN.uniqueSystemIdentifier("Demo Tv"));
+				UDN.uniqueSystemIdentifier("Demo Tv"+Math.random()));
 
-		DeviceType type=new UDADeviceType("TV", 1);
+		DeviceType type=new UDADeviceType("tv", 1);
 
 		DeviceDetails details=new DeviceDetails(
-				"Friendly TV",
+				"tv",
 				new ManufacturerDetails("ACME"),
 				new ModelDetails("TV 4000",
 					"A friendly Tv",

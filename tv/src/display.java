@@ -22,8 +22,11 @@ public class display {
         return propertyChangeSupport;
     }
 
-    @UpnpStateVariable(defaultValue = "0", sendEvents = true)
+    @UpnpStateVariable(defaultValue = "0", sendEvents = false)
     private int status = 0;
+
+    @UpnpStateVariable(defaultValue = "0", sendEvents = false)
+    private String text = "";
 
     @UpnpAction
     public void setStatus(@UpnpInputArgument(name = "NewTargetValue") int newTargetValue) {
@@ -35,6 +38,13 @@ public class display {
 
         // This will send a UPnP event, it's the name of a state variable that sends events
         //getPropertyChangeSupport().firePropertyChange("Status", statusOldValue, status);
+    }
+
+    @UpnpAction
+    public void display(@UpnpInputArgument(name = "Text") String newTargetValue) {
+
+	main.m_tv_display_label.set_text_message(newTargetValue);
+
     }
 
     @UpnpAction(out = @UpnpOutputArgument(name = "ResultStatus"))
