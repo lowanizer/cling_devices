@@ -52,9 +52,9 @@ public class display {
         return status;
     }
 
-    public void setMetaData(String text){
-    	MetaData = text;
-    	getPropertyChangeSupport().firePropertyChange("MetaData", "", text);
+    public void setMetaData(String t){
+    	MetaData = t;
+    	getPropertyChangeSupport().firePropertyChange("MetaData", "", t);
     }
     
     @UpnpStateVariable(defaultValue="type=Display", sendEvents=true)

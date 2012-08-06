@@ -120,8 +120,8 @@ class main implements Runnable
 		DeviceDetails details=new DeviceDetails(
 				"phone",
 				new ManufacturerDetails("ACME"),
-				new ModelDetails("TV 4000",
-					"A friendly Tv",
+				new ModelDetails("°Phone 4000",
+					"A friendly Phone",
 					"v1"));
 			
 		LocalService<display> display_service=
@@ -142,7 +142,7 @@ class main implements Runnable
 		Logger logger=Logger.getLogger("");
 		logger.setLevel(Level.SEVERE);
 
-		JFrame frame=new JFrame("Tv");
+		JFrame frame=new JFrame("Phone");
 		m_tv_display_label=new tv_display_label();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
