@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <actionList>
+      <action>
+         <name>GetHeading</name>
+         <argumentList>
+            <argument>
+               <name>heading</name>
+               <direction>out</direction>
+               <retval />
+               <relatedStateVariable>A_ARG_TYPE_GetHeading_RetType</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>GetLatitude</name>
+         <argumentList>
+            <argument>
+               <name>Lttd</name>
+               <direction>out</direction>
+               <retval />
+               <relatedStateVariable>A_ARG_TYPE_GetLatitude_RetType</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>GetLongitude</name>
+         <argumentList>
+            <argument>
+               <name>Lgtd</name>
+               <direction>out</direction>
+               <retval />
+               <relatedStateVariable>A_ARG_TYPE_GetLongitude_RetType</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetHeading</name>
+         <argumentList>
+            <argument>
+               <name>heading</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetHeading_heading</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetLatitude</name>
+         <argumentList>
+            <argument>
+               <name>Lttd</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetLatitude_Lttd</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetLongitude</name>
+         <argumentList>
+            <argument>
+               <name>Lgtd</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetLongitude_Lgtd</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetPosition</name>
+         <argumentList>
+            <argument>
+               <name>Lttd</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetPosition_Lttd</relatedStateVariable>
+            </argument>
+            <argument>
+               <name>Lgtd</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetPosition_Lgtd</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+   </actionList>
+   <serviceStateTable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_GetLongitude_RetType</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_GetLatitude_RetType</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetHeading_heading</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetLongitude_Lgtd</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetPosition_Lgtd</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_GetHeading_RetType</name>
+         <dataType>i4</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetLatitude_Lttd</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetPosition_Lttd</name>
+         <dataType>string</dataType>
+      </stateVariable>
+   </serviceStateTable>
+</scpd>

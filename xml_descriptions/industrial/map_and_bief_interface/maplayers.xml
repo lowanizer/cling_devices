@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <actionList>
+      <action>
+         <name>SetBief</name>
+         <argumentList>
+            <argument>
+               <name>biefdesc</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetBief_biefdesc</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetSelectedLayers</name>
+         <argumentList>
+            <argument>
+               <name>layers</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetSelectedLayers_layers</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetVanneProperties</name>
+         <argumentList>
+            <argument>
+               <name>xmlDesc</name>
+               <direction>in</direction>
+               <relatedStateVariable>A_ARG_TYPE_SetVanneProperties_xmlDesc</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+   </actionList>
+   <serviceStateTable>
+      <stateVariable sendEvents="yes">
+         <name>FinVanneEnCours</name>
+         <dataType>string</dataType>
+         <defaultValue />
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetSelectedLayers_layers</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="yes">
+         <name>NouvelleVanneEnCours</name>
+         <dataType>string</dataType>
+         <defaultValue />
+      </stateVariable>
+      <stateVariable sendEvents="yes">
+         <name>RequestBiefUpdate</name>
+         <dataType>i4</dataType>
+         <defaultValue>0</defaultValue>
+      </stateVariable>
+      <stateVariable sendEvents="yes">
+         <name>Layers</name>
+         <dataType>string</dataType>
+         <defaultValue />
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetVanneProperties_xmlDesc</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="yes">
+         <name>Vanne</name>
+         <dataType>string</dataType>
+         <defaultValue />
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>A_ARG_TYPE_SetBief_biefdesc</name>
+         <dataType>string</dataType>
+      </stateVariable>
+   </serviceStateTable>
+</scpd>

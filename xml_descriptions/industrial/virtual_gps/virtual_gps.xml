@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <device>
+      <deviceType>urn:schemas-upnp-org:device:VirtualGPS:1</deviceType>
+      <friendlyName>VirtualGPS</friendlyName>
+      <manufacturer>I3S / Rainbow</manufacturer>
+      <modelName>Virtual GPS</modelName>
+      <UDN>uuid:b5b890c9-cda0-4f8b-bd35-c91d29364d52</UDN>
+      <serviceList>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Meta-data:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Metadata</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Metadata_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Metadata_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Metadata_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Position:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Position</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Position_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Position_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Position_event</eventSubURL>
+         </service>
+      </serviceList>
+   </device>
+</root>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <device>
+      <deviceType>urn:schemas-upnp-org:device:MapStreet:1</deviceType>
+      <friendlyName>MapStreet</friendlyName>
+      <manufacturer>Rainbow</manufacturer>
+      <manufacturerURL>http://rainbow.i3s.unice.fr/</manufacturerURL>
+      <modelDescription>Google Map / Google Street UPnP for CONTINUUM</modelDescription>
+      <modelName>Google Map / Google Street UPnP</modelName>
+      <modelNumber>2.0</modelNumber>
+      <UDN>uuid:3b10afdc-7ed2-433f-9aba-16c779a000df</UDN>
+      <serviceList>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:DataLoadService:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:DataLoadService</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-DataLoadService_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-DataLoadService_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-DataLoadService_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Meta-data:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Metadata</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Metadata_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Metadata_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Metadata_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:NavigationService:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:NavigationService</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-NavigationService_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-NavigationService_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-NavigationService_event</eventSubURL>
+         </service>
+      </serviceList>
+   </device>
+</root>

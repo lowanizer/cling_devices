@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <device>
+      <deviceType>urn:schemas-upnp-org:device:Radar:1</deviceType>
+      <friendlyName>Radar</friendlyName>
+      <manufacturer>Rainbow</manufacturer>
+      <manufacturerURL>http://rainbow.i3s.unice.fr/</manufacturerURL>
+      <modelDescription>Virtual Radar UPnP Device</modelDescription>
+      <modelName>Radar UPnP Device</modelName>
+      <modelNumber>X1</modelNumber>
+      <UDN>uuid:0159aac8-8aa7-4380-aadd-c53b8b61e13e</UDN>
+      <serviceList>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Configuration:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Configuration</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Configuration_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Configuration_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Configuration_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Item:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Item</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Item_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Item_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Item_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Meta-data:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Metadata</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Metadata_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Metadata_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Metadata_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Position:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Position</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Position_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Position_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Position_event</eventSubURL>
+         </service>
+      </serviceList>
+   </device>
+</root>

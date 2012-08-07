@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <actionList>
+      <action>
+         <name>SetActualVal</name>
+         <argumentList>
+            <argument>
+               <name>nbtour</name>
+               <direction>in</direction>
+               <relatedStateVariable>nbTour</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetScannedVanne</name>
+         <argumentList>
+            <argument>
+               <name>scannedvanne</name>
+               <direction>in</direction>
+               <relatedStateVariable>scannedVanne</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+      <action>
+         <name>SetVanneProperties</name>
+         <argumentList>
+            <argument>
+               <name>vanneproperties</name>
+               <direction>in</direction>
+               <relatedStateVariable>vanneProperties</relatedStateVariable>
+            </argument>
+         </argumentList>
+      </action>
+   </actionList>
+   <serviceStateTable>
+      <stateVariable sendEvents="no">
+         <name>vanneProperties</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>nbTour</name>
+         <dataType>string</dataType>
+      </stateVariable>
+      <stateVariable sendEvents="no">
+         <name>scannedVanne</name>
+         <dataType>string</dataType>
+      </stateVariable>
+   </serviceStateTable>
+</scpd>

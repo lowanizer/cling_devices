@@ -1,0 +1,46 @@
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+	<specVersion>
+		<major>
+			1
+		</major>
+		<minor>
+			0
+		</minor>
+	</specVersion>
+	<device>
+		<deviceType>
+			urn:schemas-upnp-org:device:gemaltoTubeDevice:1
+		</deviceType>
+		<friendlyName>
+			CleDeVanne
+		</friendlyName>
+		<manufacturer>
+			Ubiquarium - Rainbow / I3S
+		</manufacturer>
+		<modelName>
+			Simulateur Cle UPnP Device
+		</modelName>
+		<UDN>
+			uuid:12345678-153f-430d-82f3-dfc320c17520
+		</UDN>
+		<serviceList>
+			<service>
+				<serviceType>
+					urn:schemas-upnp-org:service:Tube:1
+				</serviceType>
+				<serviceId>
+					urn:upnp-org:serviceId:CleDeVanne
+				</serviceId>
+				<SCPDURL>
+					_urn-upnp-org-serviceId-CleDeVanne_scpd.xml
+				</SCPDURL>
+				<controlURL>
+					_urn-upnp-org-serviceId-CleDeVanne_control
+				</controlURL>
+				<eventSubURL>
+					_urn-upnp-org-serviceId-CleDeVanne_event
+				</eventSubURL>
+			</service>
+		</serviceList>
+	</device>
+</root>

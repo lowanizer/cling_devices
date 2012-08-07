@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <device>
+      <deviceType>urn:schemas-upnp-org:device:Sample:1</deviceType>
+      <friendlyName>ValveInfoHelmetDevice</friendlyName>
+      <manufacturer>OpenSource</manufacturer>
+      <manufacturerURL>http://opentools.homeip.net</manufacturerURL>
+      <modelDescription>Sample UPnP Device Using Auto-Generated UPnP Stack</modelDescription>
+      <modelName>Sample Auto-Generated Device</modelName>
+      <modelNumber>X1</modelNumber>
+      <UDN>uuid:94c588a5-4c88-4bf1-a269-9705805cd297</UDN>
+      <serviceList>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service::1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Meta-data:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Metadata</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Metadata_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Metadata_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Metadata_event</eventSubURL>
+         </service>
+      </serviceList>
+   </device>
+</root>

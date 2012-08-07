@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+   <specVersion>
+      <major>1</major>
+      <minor>0</minor>
+   </specVersion>
+   <device>
+      <deviceType>urn:schemas-upnp-org:device:MapAndBiefInterface:1</deviceType>
+      <friendlyName>MapAndBiefInterface</friendlyName>
+      <manufacturer>Ubiquarium - Rainbow / I3S</manufacturer>
+      <modelName>UPnP Remote Control for Maps Navigation</modelName>
+      <UDN>uuid:12345678-166f-432d-82f3-dff320c37911</UDN>
+      <serviceList>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:MapControlers:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Controlers</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Controlers_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Controlers_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Controlers_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:MapLayers:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Layers</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Layers_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Layers_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Layers_event</eventSubURL>
+         </service>
+         <service>
+            <serviceType>urn:schemas-upnp-org:service:Meta-data:1</serviceType>
+            <serviceId>urn:upnp-org:serviceId:Metadata</serviceId>
+            <SCPDURL>_urn-upnp-org-serviceId-Metadata_scpd.xml</SCPDURL>
+            <controlURL>_urn-upnp-org-serviceId-Metadata_control</controlURL>
+            <eventSubURL>_urn-upnp-org-serviceId-Metadata_event</eventSubURL>
+         </service>
+      </serviceList>
+   </device>
+</root>
